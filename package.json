@@ -1,0 +1,29 @@
+{
+  "name": "nextgen-global-content-pipeline",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "list": "node src/list.js",
+    "dev": "nodemon src/sync.js list",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brrkrmn/nextgen-global-content-pipeline.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/brrkrmn/nextgen-global-content-pipeline/issues"
+  },
+  "homepage": "https://github.com/brrkrmn/nextgen-global-content-pipeline#readme",
+  "description": "",
+  "type": "module",
+  "dependencies": {
+    "dotenv": "^17.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
