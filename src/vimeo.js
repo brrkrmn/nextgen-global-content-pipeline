@@ -76,8 +76,8 @@ export async function listFolderVideoMetadata() {
         page: String(page),
         fields:
           'uri,name,link,files,download,resource_key',
-        sort: 'date',
-        direction: 'desc',
+        sort: 'alphabetical',
+        direction: 'asc',
       }
     );
 
