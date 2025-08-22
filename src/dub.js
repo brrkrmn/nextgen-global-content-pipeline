@@ -3,7 +3,7 @@ import path from 'path';
 import 'dotenv/config';
 
 const ROOT = process.cwd();
-const VIDEOS_PATH = path.join(ROOT, 'data', 'test.json');
+const VIDEOS_PATH = path.join(ROOT, 'data', 'videos.json');
 const DUBS_OK_PATH = path.join(ROOT, 'data', 'dubbings.json');
 const DUBS_FAIL_PATH = path.join(ROOT, 'data', 'dubbings_failures.json');
 
