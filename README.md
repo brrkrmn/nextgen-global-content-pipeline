@@ -4,7 +4,8 @@ Automating:
 - pulling videos from a Vimeo folder,
 - creating ElevenLabs dubbing projects for given videos,
 - rendering/exporting finalized dubs, and
-- tracking everything in local JSON files.
+- tracking everything in local JSON files
+- updating Google Sheet docs for collaboration
 
 ---
 
@@ -12,13 +13,17 @@ Automating:
 ```
 .
 ├── data
-│   ├── dubbings.json      # Local source of ElevenLabs dubbing projects
-│   └── videos.json        # Local cache of Vimeo videos (alphabetically fetched) and their download URLs
+│   ├── dubbings.json               # Local source of ElevenLabs dubbing projects
+│   ├── dubbings_failures.json      # Caught errors during dubbing
+│   └── videos.json                 # Local cache of Vimeo videos (alphabetically fetched) and their download URLs
+│   └── batch_videos.json           # Vimeo video objects to be dubbed (maximum of 5 is allowed at a time)
 ├── src
-│   ├── dub.js             # Creates ElevenLabs dubbing projects from videos.json, creates dubbings.json
-│   ├── export.js          # Renders/exports ready projects; updates dubbings.json
-│   ├── list.js            # Lists Vimeo folder videos; builds/refreshes videos.json
-│   └── vimeo.js           # Vimeo API utilities (auth, listing, helpers)
+│   ├── dub.js                      # Creates ElevenLabs dubbing projects from videos.json, creates dubbings.json
+│   ├── export.js                   # Renders/exports ready projects; updates dubbings.json
+│   ├── list.js                     # Lists Vimeo folder videos; builds/refreshes videos.json
+│   └── vimeo.js                    # Vimeo API utilities (auth, listing, helpers)
+│   └── sync-sheet.js               # Syncs google sheet after dub and export (called via separate commands)
+│   └── credits.js                  # Returns Elevenlabs credit details (plan, total/used/remaining credits)
 └── .env                 
 ```
 
@@ -63,7 +68,7 @@ Contains Vimeo videos fetched **alphabetically** from a specific Vimeo folder. E
       "downloadUrl": "https://player.vimeo.com/..."
     }
 
-> Note: Vimeo download URLs can expire over time.
+> Note: Vimeo download URLs can expire over time. Use `npm run list` to refresh.
 
 ---
 
@@ -107,11 +112,27 @@ Renders & exports the **ready** (approved) ElevenLabs dubbing projects and updat
   - Run `npm run export` again.
   - The existing entry in `dubbings.json` is **updated in place**.
 
+## Sheet Sync Commands
+
+### `npm run sync:dub`
+Updates connected Google Sheet document for dubbed videos.
+- Adds 
+  -`ElevenLabs Dubbing URL`
+  -`ElevenLabs Dubbing Name`
+- Updates status as `Needs Revision`
+
+### `npm run sync:export`
+Updates connected Google Sheet document for rendered videos.
+- Adds 
+  -`Dubbed Video URL` (Download link of dubbed video)
+- Updates status as `Exported`
 ---
 
 ## Summary
 
 - Use `npm run list` to populate/refresh Vimeo videos (alphabetically).
 - Use `npm run dub` to create ElevenLabs dubbing projects from those videos.
+- Use `npm run sync:dub` after dubbing to sync Google Sheet fields.
 - Mark projects ready by adding `READY_KEYWORD` to their titles in ElevenLabs.
 - Use `npm run export` to render/export ready projects; titles will be updated to `EXPORTED_KEYWORD`, and `dubbings.json` will be updated accordingly.
+- Use `npm run sync:export` after exporting to sync Google Sheet fields.
