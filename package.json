@@ -10,7 +10,9 @@
     "sync:export": "MODE=export node src/engDub/sync-sheet.js",
     "credit": "node src/engDub/credits.js",
     
-    "list-german": "node src/germanDub/list.js"
+    "list-german": "node src/germanDub/list.js",
+    "dub-german": "node src/germanDub/dub.js",
+    "export-german": "node src/germanDub/export.js"
   },
   "repository": {
     "type": "git",

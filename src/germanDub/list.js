@@ -2,7 +2,7 @@ import { mkdirSync, existsSync, readFileSync, writeFileSync } from 'fs';
 import { listFolderVideoMetadataRecursive } from './vimeo.js';
 
 const DATA_DIR = './src/germanDub/data';
-const VIDEOS_JSON = `${DATA_DIR}/en-videos.json`;
+const VIDEOS_JSON = `${DATA_DIR}/en_videos.json`;
 
 function loadJson(path, fallback) {
   if (!existsSync(path)) return fallback;
